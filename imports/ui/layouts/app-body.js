@@ -59,4 +59,7 @@ Template.App_body.events({
   'click .title'() {
     Session.set('detailsShow', false);
   },
+  'click #user-events'() {
+    Session.set('detailsShow', false);
+  }
 });

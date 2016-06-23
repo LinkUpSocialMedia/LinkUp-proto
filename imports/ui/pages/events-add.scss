@@ -8,10 +8,24 @@
       .item-stacked-label {
         background-color: white;
       }
+      .item-input {
+        input {
+          &.error {
+            &::-webkit-input-placeholder {
+              color: #ef473a;
+            }
+          }
+        }
+      }
       .description {
         #event-description {
           height: 100px;
           resize: none;
+          &.error {
+            &::-webkit-input-placeholder {
+              color: #ef473a;
+            }
+          }
         }
         .char-count {
           position: absolute;
@@ -19,6 +33,9 @@
           margin-top: 85px;
           font-size: 14px;
           color: lighten(#444, 20%);
+          &.error {
+            color: #ef473a;
+          }
         }
       }
       .address {

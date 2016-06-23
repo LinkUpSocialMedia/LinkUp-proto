@@ -4,6 +4,7 @@
   background-color: #fbfbfb;
   width: 100%;
   .card {
+    margin-top: 10px;
     .item-body {
       > div {
         display: flex;
@@ -11,7 +12,7 @@
         justify-content: center;
         .full-image {
           max-width: 100%;
-          max-height: 40vh;
+          max-height: 30vh;
           width: auto;
         }
       }

@@ -90,11 +90,11 @@ Template.Auth_join.events({
       instance.state.set('passwordError', 'item-stacked-label');
       instance.state.set('passwordErrorMessage', 'Password must be longer!');
     }
-    if (!passwordAgain) {
+    if (!passwordAgain && !instance.state.get('passwordError')) {
       errors = true;
       instance.state.set('passwordAgainError', 'item-stacked-label');
       instance.state.set('passwordAgainErrorMessage', 'Please match passwords!');
-    } else if (passwordAgain !== password) {
+    } else if (passwordAgain !== password && !instance.state.get('passwordError')) {
       errors = true;
       instance.state.set('passwordAgainError', 'item-stacked-label');
       instance.state.set('passwordAgainErrorMessage', 'Passwords must match!');

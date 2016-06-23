@@ -20,6 +20,10 @@ Template.EventChats_chat.onCreated(function() {
   });
   if (Meteor.isCordova) {
     Keyboard.shrinkView(true);
+    window.addEventListener('keyboardDidShow', () => {
+      const objDiv = document.getElementById("scrolling-content-container");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
   }
 });
 
@@ -72,4 +76,30 @@ Template.EventChats_chat.events({
 
     event.target.message.value = '';
   },
+  // 'keydown #message-message'(event) {
+  //   if (event.which === 13) {
+  //     user = Meteor.users.findOne(Meteor.userId());
+  //
+  //     const message = {
+  //       eventId: FlowRouter.getParam('_id'),
+  //       message: event.target.value,
+  //       name: user.name,
+  //       avatar: user.avatar,
+  //     };
+  //
+  //     Meteor.call('eventChats.insert', message);
+  //
+  //     Tracker.afterFlush(() => {
+  //       const objDiv = document.getElementById("scrolling-content-container");
+  //       objDiv.scrollTop = objDiv.scrollHeight;
+  //     });
+  //
+  //     event.target.value = '';
+  //   }
+  // },
+  // 'keyup #message-message'(event) {
+  //   if (event.which === 13) {
+  //     event.target.value = '';
+  //   }
+  // },
 });

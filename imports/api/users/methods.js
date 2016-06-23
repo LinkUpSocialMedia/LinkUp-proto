@@ -76,6 +76,7 @@ export const joinEvent = new ValidatedMethod({
       location: event.location,
       avatar: event.avatar,
       description: event.description,
+      userAvatar: event.userAvatar,
     };
 
     Meteor.users.update({ _id: this.userId }, {

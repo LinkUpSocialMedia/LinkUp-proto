@@ -14,14 +14,14 @@ import '../../api/avatars/avatars.js';
 Template.Events_add.onCreated(function() {
   this.state = new ReactiveDict();
   this.state.setDefault({
-    nameError: false,
-    decsriptionError: false,
-    addressError: false,
-    dateError: false,
-    timeError: false,
-    imageError: false,
+    nameError: '',
+    decsriptionError: '',
+    addressError: '',
+    dateError: '',
+    timeError: '',
+    imageError: '',
     imageErrorMessage: '',
-    uploadError: false,
+    uploadError: '',
     charCount: 250,
   });
   if (Meteor.isCordova) {
@@ -95,7 +95,7 @@ Template.Events_add.events({
   'change #create-avatar'(event, instance) {
     event.preventDefault();
 
-    instance.state.set('imageError', false);
+    instance.state.set('imageError', '');
 
     const file = document.getElementById('create-avatar').files[0];
     const url = URL.createObjectURL(file);
@@ -117,28 +117,27 @@ Template.Events_add.events({
 
     if (!name) {
       errors = true;
-      instance.state.set('nameError', 'item-stacked-label');
+      instance.state.set('nameError', 'error');
     }
     if (!description) {
       errors = true;
-      instance.state.set('descriptionError', 'item-stacked-label');
+      instance.state.set('descriptionError', 'error');
     }
     if (!date) {
       errors = true;
-      instance.state.set('dateError', true);
+      instance.state.set('dateError', 'assertive');
     }
     if (!time) {
       errors = true;
-      instance.state.set('timeError', true);
+      instance.state.set('timeError', 'assertive');
     }
     if (!address) {
       errors = true;
-      instance.state.set('addressError', 'item-stacked-label');
+      instance.state.set('addressError', 'error');
     }
     if (!avatar) {
       errors = true;
-      instance.state.set('imageError', true);
-      instance.state.set('imageErrorMessage', 'You must choose an avatar!');
+      instance.state.set('imageError', 'assertive');
     }
 
     time = 'T' + time + ':00';
@@ -158,7 +157,7 @@ Template.Events_add.events({
         if (error) {
           console.log('Error uploading', uploader.xhr.response);
           console.log(error);
-          instance.state.set('imageError', true);
+          instance.state.set('imageError', 'assertive');
           instance.state.set('imageErrorMessage', 'Upload failed, try different image!');
         } else {
           eventToAdd.avatar = downloadUrl;
@@ -168,25 +167,25 @@ Template.Events_add.events({
       });
     }
   },
-  'keypress #event-name'(event, instance) {
-    instance.state.set('nameError', false);
+  'input #event-name'(event, instance) {
+    instance.state.set('nameError', '');
   },
-  'keypress #event-description'(event, instance) {
-    instance.state.set('descriptionError', false);
+  'input #event-description'(event, instance) {
+    instance.state.set('descriptionError', '');
   },
-  'keypress #event-address'(event, instance) {
+  'input #event-address'(event, instance) {
     $(document).on({
       'DOMNodeInserted': function() {
         $('.pac-item, .pac-item span', this).addClass('needsclick');
       }
     }, '.pac-container');
-    instance.state.set('addressError', false);
+    instance.state.set('addressError', '');
   },
   'click #event-date'(event, instance) {
-    instance.state.set('dateError', false);
+    instance.state.set('dateError', '');
   },
   'click #event-time'(event, instance) {
-    instance.state.set('timeError', false);
+    instance.state.set('timeError', '');
   },
   'click .ion-ios-close'(event, instance) {
     event.target.offsetParent.firstElementChild.value = '';
