@@ -1,0 +1,19 @@
+.auth-join {
+  margin-top: 75%;
+  #join-auth-submit {
+    width: 100%;
+  }
+  .list {
+    .item-stacked-label {
+      background-color: white;
+    }
+  }
+  .or-login {
+    margin-top: 10px;
+    h3 {
+      font-size: 17px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+}

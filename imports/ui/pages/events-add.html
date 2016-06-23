@@ -1,0 +1,65 @@
+<template name="Events_add">
+  <div class="page events-add">
+    <div class="bar bar-subheader">
+      <h2 class="title">Create an event.</h2>
+    </div>
+    <form id="insert-event">
+      <div class="list">
+        <label class="item item-input {{nameError}}">
+          {{#if nameError}}
+            <span class="input-label assertive">Event name required</span>
+          {{/if}}
+          <input type="text" name="name" id="event-name" placeholder="Event name">
+        </label>
+        <label class="item item-input upload-avatar">
+          {{#unless loaded}}
+            Upload an avatar <i class="ion-ios-upload-outline"></i>
+          {{/unless}}
+          {{#if loaded}}
+            Choose another image
+          {{/if}}
+          <input type="file" name="avatar" id="create-avatar" accept="image/*">
+          <img id="uploaded-image" src="{{image}}">
+          {{#if imageError}}
+            <span class="assertive">{{imageErrorMessage}}</span>
+          {{/if}}
+        </label>
+        <label class="item item-input description {{descriptionError}}">
+          {{#if descriptionError}}
+            <span class="input-label assertive">Event description required</span>
+          {{/if}}
+          <textarea name="description" id="event-description" placeholder="Description" maxlength="250"></textarea>
+          {{#unless descriptionError}}
+            <span class="char-count">{{charCount}} characters left</span>
+          {{/unless}}
+        </label>
+        <label class="item item-input address {{addressError}}">
+          {{#if addressError}}
+            <span class="input-label assertive">Event address required</span>
+          {{/if}}
+          <input type="text" name="address" id="event-address" placeholder="Event address">
+          {{#unless addressError}}
+            <i class="ion-ios-close"></i>
+          {{/unless}}
+        </label>
+        <label class="item item-input">
+          {{#if dateError}}
+            <span class="input-label assertive">Event date required</span>
+          {{else}}
+            <span class="input-label">Event date</span>
+          {{/if}}
+          <input type="date" min="{{minDate}}" name="date" id="event-date">
+        </label>
+        <label class="item item-input">
+          {{#if timeError}}
+            <span class="input-label assertive">Event time required</span>
+          {{else}}
+            <span class="input-label">Event time</span>
+          {{/if}}
+          <input type="time" name="time" id="event-time">
+        </label>
+      </div>
+      <button class="button button-dark" id="insert-event-submit" type="submit">Create</button>
+    </form>
+  </div>
+</template>
