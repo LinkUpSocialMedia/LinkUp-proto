@@ -12,7 +12,7 @@ export const register = new ValidatedMethod({
     password: { type: String },
   }).validator(),
   run({ email, password }) {
-    options = {
+    const options = {
       email,
       password,
     };

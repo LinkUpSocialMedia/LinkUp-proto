@@ -3,7 +3,8 @@ App.info({
   description: 'Bringing social back to social media.',
   author: 'William Kniffin',
   email: 'wdkniffin@gmail.com',
-  website: 'https://angel.co/william-kniffin',
+  website: 'http://www.linkup-app.com/',
+  id: 'com.linkUp',
   version: '0.0.1',
 });
 
@@ -27,8 +28,9 @@ App.launchScreens({
 App.accessRule('https://*.googleapis.com/*');
 App.accessRule('https://*.google.com/*');
 App.accessRule('https://*.gstatic.com/*');
-App.accessRule('http://meteor.local/*');
+App.accessRule('http://linkup.meteorapp.com/*');
 App.accessRule("*", {external: false});
 
 App.setPreference('AutoHideSplashScreen', 'true');
 App.setPreference('BackupWebStorage', 'local');
+App.setPreference('Orientation', 'portrait');

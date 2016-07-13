@@ -3,7 +3,7 @@ import './auth-join.html';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { ReactiveDict } from 'meteor/reactive-dict';
-import { Sessions } from 'meteor/session';
+import { Session } from 'meteor/session';
 import { Accounts } from 'meteor/accounts-base';
 
 Template.Auth_join.onCreated(function() {
@@ -87,6 +87,7 @@ Template.Auth_join.events({
       instance.state.set('passwordError', 'item-stacked-label');
       instance.state.set('passwordErrorMessage', 'Password required!');
     } else if (password.length < 7) {
+      errors = true;
       instance.state.set('passwordError', 'item-stacked-label');
       instance.state.set('passwordErrorMessage', 'Password must be longer!');
     }
