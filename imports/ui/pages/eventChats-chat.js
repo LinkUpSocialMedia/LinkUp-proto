@@ -1,7 +1,7 @@
 import './eventChats-chat.html';
 
 import { Meteor } from 'meteor/meteor';
-import { EventChats } from '../../api/eventChats/eventChats.js';
+import { Comments } from '../../api/comments/comments.js';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Tracker } from 'meteor/tracker';
 import { Template } from 'meteor/templating';
@@ -9,13 +9,13 @@ import { Session } from 'meteor/session';
 import { _ } from 'meteor/underscore';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-import '../../api/eventChats/methods.js';
+import '../../api/comments/methods.js';
 import '../components/chat-message.js';
 
 Template.EventChats_chat.onCreated(function() {
   this.autorun(() => {
     id = FlowRouter.getParam('_id');
-    this.subscribe('eventChats.ofEvent', id);
+    this.subscribe('comments.ofEvent', id);
     this.subscribe('users.current');
   });
   if (Meteor.isCordova) {
@@ -29,7 +29,7 @@ Template.EventChats_chat.onCreated(function() {
 
 Template.EventChats_chat.onRendered(function() {
   this.autorun(() => {
-    EventChats.find().observe({
+    Comments.find().observe({
       added: function(doc) {
         Tracker.afterFlush(() => {
           const objDiv = document.getElementById("scrolling-content-container");
@@ -43,7 +43,7 @@ Template.EventChats_chat.onRendered(function() {
 Template.EventChats_chat.helpers({
   messages() {
     const eventId = FlowRouter.getParam('_id');
-    return EventChats.find({ eventId });
+    return Comments.find({ eventId });
   },
   eventName() {
     const userEvents = Meteor.users.findOne().events;
@@ -67,7 +67,7 @@ Template.EventChats_chat.events({
       avatar: user.avatar,
     };
 
-    Meteor.call('eventChats.insert', message);
+    Meteor.call('comments.insert', message);
 
     Tracker.afterFlush(() => {
       const objDiv = document.getElementById("scrolling-content-container");
@@ -75,31 +75,5 @@ Template.EventChats_chat.events({
     });
 
     event.target.message.value = '';
-  },
-  // 'keydown #message-message'(event) {
-  //   if (event.which === 13) {
-  //     user = Meteor.users.findOne(Meteor.userId());
-  //
-  //     const message = {
-  //       eventId: FlowRouter.getParam('_id'),
-  //       message: event.target.value,
-  //       name: user.name,
-  //       avatar: user.avatar,
-  //     };
-  //
-  //     Meteor.call('eventChats.insert', message);
-  //
-  //     Tracker.afterFlush(() => {
-  //       const objDiv = document.getElementById("scrolling-content-container");
-  //       objDiv.scrollTop = objDiv.scrollHeight;
-  //     });
-  //
-  //     event.target.value = '';
-  //   }
-  // },
-  // 'keyup #message-message'(event) {
-  //   if (event.which === 13) {
-  //     event.target.value = '';
-  //   }
-  // },
+  },  
 });

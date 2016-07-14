@@ -2,18 +2,6 @@ import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Meteor } from 'meteor/meteor';
 
-// class EventsCollection extends Mongo.Collection {
-//   insert(event, callback) {
-//     const theEvent = event;
-//     const theUser = Meteor.users.findOne(theEvent.userId);
-//     theEvent.createdBy = theUser.name;
-//     theEvent.userAvatar = theUser.avatar;
-//     theEvent.dataCreated = new Date();
-//
-//     return super.insert(theEvent, callback);
-//   }
-// }
-
 export const Events = new Mongo.Collection('events');
 
 if (Meteor.isServer) {
@@ -33,13 +21,15 @@ Events.schema = new SimpleSchema({
   "location.type": { type: String },
   "location.coordinates": { type: [Number], decimal: true },
   address: { type: String },
-  avatar: { type: String, regEx: SimpleSchema.RegEx.Url },
+  avatar: { type: String, regEx: SimpleSchema.RegEx.Url, optional: true },
   dateOccuring: { type: Date },
   unixTime: { type: Number },
   userId: { type: String, regEx: SimpleSchema.RegEx.Id },
   createdBy: { type: String },
   userAvatar: { type: String, regEx: SimpleSchema.RegEx.Url },
   dateCreated: { type: Date },
+  usersGoing: { type: Number, min: 0 },
+  category: { type: String, },
 });
 
 Events.attachSchema(Events.schema);
@@ -53,10 +43,6 @@ Events.publicFields = {
   createdBy: 1,
   userAvatar: 1,
   dateOccuring: 1,
+  usersGoing: 1,
+  category: 1,
 };
-
-Events.helpers({
-  usersAttending() {
-    return Meteor.users.find({ eventId: this._id });
-  }
-});

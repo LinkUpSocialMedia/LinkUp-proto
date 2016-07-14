@@ -20,6 +20,7 @@ Meteor.publish('users.inEvent', function usersInEvent(eventId) {
       name: 1,
       email: 1,
       avatar: 1,
+      connections: 1,
     }
   });
 });
@@ -35,6 +36,8 @@ Meteor.publish('users.current', function usersCurrent() {
       email: 1,
       events: 1,
       avatar: 1,
+      connections: 1,
+      blocked: 1,
     }
   });
 });

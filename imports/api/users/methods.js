@@ -39,7 +39,9 @@ export const update = new ValidatedMethod({
     Meteor.users.update({ _id: this.userId }, {
       $set: {
         name,
-        avatar
+        avatar,
+        connections: [],
+        blocked: [],
       }
     });
   },
@@ -84,6 +86,7 @@ export const joinEvent = new ValidatedMethod({
         events: eventInfo,
       }
     });
+    Events.update(eventId, { $inc: { usersGoing: 1 } });
   },
 });
 
@@ -103,5 +106,6 @@ export const leaveEvent = new ValidatedMethod({
         events: { eventId }
       }
     });
+    Events.update(eventId, { $inc: { usersGoing: -1 } });
   },
 });

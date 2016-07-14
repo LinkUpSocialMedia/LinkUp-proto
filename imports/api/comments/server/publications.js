@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-import { EventChats } from '../eventChats.js';
+import { Comments } from '../comments.js';
 
-Meteor.publish('eventChats.ofEvent', function eventChatsOfEvent(eventId) {
+Meteor.publish('comments.ofEvent', function commentsOfEvent(eventId) {
   new SimpleSchema({
     eventId: { type: String, regEx: SimpleSchema.RegEx.Id },
   }).validate({ eventId });
@@ -12,9 +12,9 @@ Meteor.publish('eventChats.ofEvent', function eventChatsOfEvent(eventId) {
     return this.ready();
   }
 
-  return EventChats.find({ eventId }, {
+  return Comments.find({ eventId }, {
     sort: { dateCreated: 1 }
   }, {
-    fields: EventChats.publicFields,
+    fields: Comments.publicFields,
   });
 });

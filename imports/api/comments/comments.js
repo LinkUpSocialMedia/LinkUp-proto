@@ -1,30 +1,32 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export const EventChats = new Mongo.Collection('eventChats');
+export const Comments = new Mongo.Collection('comments');
 
-EventChats.deny({
+Comments.deny({
   insert() { return true; },
   update() { return true; },
   remove() { return true; },
 });
 
-EventChats.schema = new SimpleSchema({
+Comments.schema = new SimpleSchema({
   userId: { type: String, regEx: SimpleSchema.RegEx.Id },
   eventId: { type: String, regEx: SimpleSchema.RegEx.Id },
   name: { type: String },
   avatar: { type: String, regEx: SimpleSchema.RegEx.Url },
   message: { type: String },
   dateCreated: { type: Date },
+  likes: { type: Number, min: 0 },
 });
 
-EventChats.attachSchema(EventChats.schema);
+Comments.attachSchema(Comments.schema);
 
-EventChats.publicFields = {
+Comments.publicFields = {
   eventId: 1,
   name: 1,
   message: 1,
   dateCreated: 1,
   avatar: 1,
   userId: 1,
+  likes: 1,
 };
